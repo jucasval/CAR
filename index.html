@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title></title>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="css/estilos.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+        <!-- Scripts para Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+        <script src="js/FBIntegration.js"></script>
+        <script src="js/firebbaseElRey.js"></script>
+
+
+
+
+    </head>
+    <body>
+        <!--Cabecera de la web, con información y logo -->
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4" id="col-1-jumbotron">
+                        <tr>
+                            <th colspan="4">
+                                <h3 class="display-4" id="nombreDelClub">Club de Ajedrez "El Rey"</h3>
+                                <div id="datosClub-col-1-jumbotron">
+                                    <h5>C/ Ruiseñor, 24</h5>
+                                    <h5>04230 - Huércal de Almería</h5>
+                                    <h5>650 024 287 - 649 413 558</h5>
+                                    <h5><span class="glyphicon glyphicon-envelope"></span>fundacionhuercal@hotmail.com</h5>
+                                </div>
+                            </th>
+                        </tr>
+                    </div>
+                    <div class="col-sm-4" id="col-2-jumbotron">
+                        <tr>
+                            <th colspan="4"><img src="img/logo.jpg" width="300px"></th>
+                        </tr>
+                    </div>
+                    <div class="col-sm-4" id="col-3-jumbotron">
+                        <tr colspan="2">
+                            <a href="#"><img src="iconos/icon_ubicacion.jpg" width="100px"></a>
+                        </tr>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--Lista con el acceso a los distintos menús de al web-->
+        <nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">C.A. El Rey</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Página 1</a></li>
+                <li><a href="#">Página 2</a></li>
+                <li><a href="#">Página 3</a></li>
+                <li><a href="#">Página 4</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#"><span class="glyphicon glyphicon-user">&nbsp; Sign-up</span></a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-log-in">&nbsp; Login</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+       <div class="container">
+            <div class="row">
+                <div class="col-sm-9">
+                    <!--Tabla con las convalidaciones-->
+                    <table class="table table-hover table-text-center">
+                        <thead id="cabeceraTablaSocios">
+                            <tr >
+                                <th>Nº</th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Movil</th>
+                                <th>DNI</th>
+                                <th>Editar Socio</th>
+                                <th>Borrar Socio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-tabla-socios">
+                            <!--Aquí se muestra al usuario la relacíon de socios del club -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-1">
+                    <!--Para crear un espacio -->
+                </div>
+                <div class="col-sm-2">
+                    <!--Formulario para añadir/modificar convalidaciones-->
+                    <form id="form-socio">
+                        <div class="form-group">
+                            <label for="num-socio">Número de socio</label>
+                            <input type="number" class="form-control" name="numSocio" value="" id="num-socio">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre-socio">Nombre del Socio</label>
+                            <input type="text" class="form-control" name="nombreSocio" value="" id="nombre-socio">
+                        </div>
+                        <div class="form-group">
+                            <label for="apellidos-socio">Apellidos del socio</label>
+                            <input type="text" class="form-control" name="apellidosSocio" value="" id="apellidos-socio">
+                        </div>
+                        <div class="form-group">
+                            <label for="movil-socio">Movil</label>
+                            <input type="number" class="form-control" name="movilSocio" value="" id="movil-socio">
+                        </div>
+                        <div class="form-group">
+                            <label for="dni-socio">DNI</label>
+                            <input type="text" class="form-control" name="dniSocio" value="" id="dni-socio">
+                        </div>
+                        <input type="submit" name="" value="Añadir nuevo socio" id="boton-enviar-nuevo-socio">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+       <footer class="navbar navbar-inverse">
+            <p>Footer Text</p>
+        </footer>
+
+
+    </body>
+
+</html>
+
+
+
+
+
+
