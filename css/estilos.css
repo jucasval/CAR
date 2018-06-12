@@ -6,7 +6,7 @@
 
 .jumbotron{
     margin-bottom: 0;
-    padding-top: 5px;
+    padding-top: 60px;
     background-color: white;
 }
 
@@ -65,6 +65,7 @@ footer {
 }
 
 #btn-nuevo-socio{
-    margin-top: 20px;
+    margin-top: 8px;
+    margin-left: 300px;
 }
 
