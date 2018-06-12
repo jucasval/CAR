@@ -7,6 +7,7 @@ var refSocioAEditar;
 var CREATE = "Añadir nuevo socio";
 var UPDATE = "Actualizar socio existente";
 var modo = CREATE;
+var cabeceraModal;
 
 
 function inicializar(){
@@ -27,7 +28,8 @@ function createUpdateSociosFirebase(event){
                 nombreSocio: event.target.nombreSocio.value,
                 apellidosSocio: event.target.apellidosSocio.value,
                 movilSocio: event.target.movilSocio.value,
-                dniSocio: event.target.dniSocio.value
+                dniSocio: event.target.dniSocio.value,
+                 date: event.target.date.value
             });
             break;
 
@@ -37,7 +39,9 @@ function createUpdateSociosFirebase(event){
                 nombreSocio: event.target.nombreSocio.value,
                 apellidosSocio: event.target.apellidosSocio.value,
                 movilSocio: event.target.movilSocio.value,
-                dniSocio: event.target.dniSocio.value
+                dniSocio: event.target.dniSocio.value,
+                date: event.target.date.value
+
             })
     }
 
@@ -59,8 +63,9 @@ function mostrarSociosFirebase(){
                     "<td>" + datos[key].apellidosSocio + "</td>" +
                     "<td>" + datos[key].movilSocio + "</td>" +
                     "<td>" + datos[key].dniSocio + "</td>" +
+                    "<td>" + datos[key].date + "</td>" +
                     '<td id="tdEditar">' +
-                        '<button class="btn btn-default editar" data-socios="' +key+ '">'+
+                        '<button class="btn btn-default editar" data-toggle="modal" data-target="#myModal" data-socios="' +key+ '">'+
                             '<span class="glyphicon glyphicon-pencil"></span>'+
                         '</button>' +
                     '</td>'+
@@ -100,7 +105,11 @@ function editarSociosDeFirebase(){
         document.getElementById("apellidos-socio").value = datos.apellidosSocio;
         document.getElementById("movil-socio").value = datos.movilSocio;
         document.getElementById("dni-socio").value = datos.dniSocio;
+
+         cabeceraModal = "Actualizar los datos del socio "+datos.nombreSocio+" "+datos.apellidosSocio;
+        document.getElementById("cabecera-modal").innerHTML = cabeceraModal;
     });
+
 
     document.getElementById("boton-enviar-nuevo-socio").value = UPDATE;
     modo = UPDATE;
@@ -113,6 +122,23 @@ function borrarSociosDeFirebase(){
     refSocioABorrar.remove();
 }
 
+function cambiarDatosFormulario(){
+    document.getElementById("boton-enviar-nuevo-socio").value = CREATE;
+    document.getElementById("cabecera-modal").innerHTML = "Nuevo Socio";
+    formSocios.reset();
+}
+
+$(document).ready(function(){
+              var date_input=$('input[name="date"]'); //our date input has the name "date"
+              var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+              var options={
+                format: 'mm/dd/yyyy',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+              };
+              date_input.datepicker(options);
+            })
 
 
 

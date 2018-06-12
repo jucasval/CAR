@@ -14,6 +14,8 @@
 
         <link rel="stylesheet" href="css/estilos.css">
 
+
+
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -25,6 +27,10 @@
         <script src="js/FBIntegration.js"></script>
         <script src="js/firebbaseElRey.js"></script>
 
+        <!--Scripts necesarios para crar un datapicker para recoger fechas-->
+        <!-- Include Date Range Picker -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
 
 
@@ -87,62 +93,121 @@
             </div>
           </div>
         </nav>
-       <div class="container">
-            <div class="row">
-                <div class="col-sm-9">
-                    <!--Tabla con las convalidaciones-->
-                    <table class="table table-hover table-text-center">
-                        <thead id="cabeceraTablaSocios">
-                            <tr >
-                                <th>Nº</th>
-                                <th>Nombre</th>
-                                <th>Apellidos</th>
-                                <th>Movil</th>
-                                <th>DNI</th>
-                                <th>Editar Socio</th>
-                                <th>Borrar Socio</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody-tabla-socios">
-                            <!--Aquí se muestra al usuario la relacíon de socios del club -->
-                        </tbody>
-                    </table>
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#socios">Socios</a></li>
+            <li onclick="tablaMonitores()"><a data-toggle="tab" href="#monitores">Monitores</a></li>
+            <li><a href="#">Menu 2</a></li>
+            <li><a href="#">Menu 3</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="socios" class="tab-pane fade in active">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <!--Tabla con las convalidaciones-->
+                            <table class="table table-hover table-text-center">
+                                <thead id="cabeceraTablaSocios">
+                                    <tr >
+                                        <th>Nº</th>
+                                        <th>Nombre</th>
+                                        <th>Apellidos</th>
+                                        <th>Movil</th>
+                                        <th>DNI</th>
+                                        <th>Fecha de alta</th>
+                                        <th>Editar Socio</th>
+                                        <th>Borrar Socio</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-tabla-socios">
+                                    <!--Aquí se muestra al usuario la relacíon de socios del club -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-1">
+                            <!--Para crear un espacio -->
+                        </div>
+                        <div class="col-sm-1">
+
+                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="btn-nuevo-socio">Nuevo Socio</button>
+
+
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-1">
-                    <!--Para crear un espacio -->
-                </div>
-                <div class="col-sm-2">
-                    <!--Formulario para añadir/modificar convalidaciones-->
-                    <form id="form-socio">
-                        <div class="form-group">
-                            <label for="num-socio">Número de socio</label>
-                            <input type="number" class="form-control" name="numSocio" value="" id="num-socio">
+            </div>
+            <div id="monitores" class="tab-pane fade">
+                <div class="container" id="container-escuela">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h1>HOLA</h1>
                         </div>
-                        <div class="form-group">
-                            <label for="nombre-socio">Nombre del Socio</label>
-                            <input type="text" class="form-control" name="nombreSocio" value="" id="nombre-socio">
-                        </div>
-                        <div class="form-group">
-                            <label for="apellidos-socio">Apellidos del socio</label>
-                            <input type="text" class="form-control" name="apellidosSocio" value="" id="apellidos-socio">
-                        </div>
-                        <div class="form-group">
-                            <label for="movil-socio">Movil</label>
-                            <input type="number" class="form-control" name="movilSocio" value="" id="movil-socio">
-                        </div>
-                        <div class="form-group">
-                            <label for="dni-socio">DNI</label>
-                            <input type="text" class="form-control" name="dniSocio" value="" id="dni-socio">
-                        </div>
-                        <input type="submit" class="btn btn-primary" name="" value="Añadir nuevo socio" id="boton-enviar-nuevo-socio">
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Modal con formulario de nuevo socio que lanza el botón Nuevo Socio-->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" onclick="cambiarDatosFormulario()">&times; </button>
+                        <h4 class="modal-title" id="cabecera-modal">Nuevo socio</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!--Aquí va el formulario de nuevo socio-->
+                        <!--Formulario para añadir/modificar convalidaciones-->
+                        <form id="form-socio">
+                            <div class="form-group">
+                                <input type="number" class="form-control" name="numSocio" value="" id="num-socio" placeholder="Número de socio">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="nombreSocio" value="" id="nombre-socio" placeholder="Nombre">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="apellidosSocio" value="" id="apellidos-socio" placeholder="Apellidos">
+                            </div>
+                            <div class="form-group">
+                                <input type="number" class="form-control" name="movilSocio" value="" id="movil-socio" placeholder="Nº de movil">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="dniSocio" value="" id="dni-socio" placeholder="Nº DNI sin letra">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+                            </div>
+                            <input type="submit" class="btn btn-primary" name="" value="Añadir nuevo socio" id="boton-enviar-nuevo-socio">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cambiarDatosFormulario()">Cerrar formulario</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="bootstrap-iso">
+         <div class="container-fluid">
+          <div class="row">
+           <div class="col-md-6 col-sm-6 col-xs-12">
+
+            <!-- Form code begins -->
+            <form method="post">
+
+             </form>
+             <!-- Form code ends -->
+
+            </div>
+          </div>
+         </div>
+        </div>
        <footer class="navbar navbar-inverse">
             <p>Footer Text</p>
         </footer>
+
+
+
+
 
 
     </body>
