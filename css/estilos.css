@@ -64,8 +64,77 @@ footer {
     text-align: center;
 }
 
+#tdEsMonitor{
+    text-align: center;
+}
+
+#tdEsAlumno{
+    text-align: center;
+}
+
 #btn-nuevo-socio{
     margin-top: 8px;
     margin-left: 300px;
+}
+
+/*Estilos del modal donde va ubicado el formulario*/
+.modal-header{
+    background-color: #f1f5f4;
+}
+.modal-footer{
+    background-color: #f1f5f4;
+}
+
+/*Estilos del formulario*/
+#nombre-socio{
+    margin-left: 30px;
+}
+
+#apellidos-socio{
+    margin-left: 30px;
+}
+
+#fila-2-formulario{
+    margin-top: 20px;
+}
+
+#direccion-socio{
+    width: 425px;
+}
+
+#socio-monitor{
+    margin-left: 30px;
+}
+
+#socio-escuela{
+    margin-left: 20px;
+}
+
+#fila-3-formulario{
+    margin-top: 20px;
+}
+
+#dni-socio{
+    margin-left: 30px;
+}
+
+#dni-socio{
+    margin-left: 30px;
+}
+
+#fecha-alta-socio{
+    margin-left: 30px;
+}
+
+#boton-enviar-nuevo-socio{
+    margin-top: 20px;
+}
+
+.iconOk{
+    color:green;
+}
+
+.iconRemove{
+    color: red;
 }
 

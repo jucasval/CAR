@@ -38,7 +38,7 @@
     <body>
 
         <!--Lista con el acceso a los distintos menús de al web-->
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+        <nav class="navbar navbar-default navbar-fixed-top">
           <div class="container-fluid">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -90,7 +90,9 @@
                     </div>
                     <div class="col-sm-4" id="col-3-jumbotron">
                         <tr colspan="2">
-                            <a href="#"><img src="iconos/icon_ubicacion.jpg" width="100px"></a>
+                            <a href="https://goo.gl/maps/BbGYXiWPiE22"><img src="iconos/icon_ubicacion.jpg" width="160px"></a>
+                            <a href="https://clubajedrezelrey.blogspot.com/"><img src="iconos/Blogger-Icon.png" width="70px"></a>
+                            <a href="https://www.facebook.com/clubdeajedrez.elrey?ref=bookmarks"><img src="iconos/Facebook-Icono.png" width="70px"></a>
                         </tr>
                     </div>
                 </div>
@@ -115,9 +117,12 @@
                                         <th>Nº</th>
                                         <th>Nombre</th>
                                         <th>Apellidos</th>
+                                        <th>Dirección</th>
                                         <th>Movil</th>
                                         <th>DNI</th>
                                         <th>Fecha de alta</th>
+                                        <th>Monitor</th>
+                                        <th>Alumno</th>
                                         <th>Editar Socio</th>
                                         <th>Borrar Socio</th>
                                     </tr>
@@ -153,26 +158,43 @@
                     <div class="modal-body">
                         <!--Aquí va el formulario de nuevo socio-->
                         <!--Formulario para añadir/modificar convalidaciones-->
-                        <form id="form-socio">
-                            <div class="form-group">
-                                <input type="number" class="form-control" name="numSocio" value="" id="num-socio" placeholder="Número de socio">
+                        <form  id="form-socio">
+                            <div class="form-inline" id="fila-1-formulario">
+                                <div class="form-group">
+                                    <input type="number" class="form-control" name="numSocio" value="" id="num-socio" placeholder="Número de socio">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="nombreSocio" value="" id="nombre-socio" placeholder="Nombre">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="apellidosSocio" value="" id="apellidos-socio" placeholder="Apellidos">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="nombreSocio" value="" id="nombre-socio" placeholder="Nombre">
+                            <div class="form-inline" id="fila-2-formulario">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="direccionSocio" value="" id="direccion-socio" placeholder="Dirección">
+                                </div>
+                                <div class="checkbox">
+                                  <label><input type="checkbox" class="micheckbox" name="socioMonitor" value="false" id="socio-monitor">Monitor</label>
+                                </div>
+                                <div class="checkbox">
+                                  <label><input type="checkbox" name="socioEscuela" value="false" id="socio-escuela">Escuela</label>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="apellidosSocio" value="" id="apellidos-socio" placeholder="Apellidos">
-                            </div>
-                            <div class="form-group">
+                            <div class="form-inline" id="fila-3-formulario">
+                                <div class="form-group">
                                 <input type="number" class="form-control" name="movilSocio" value="" id="movil-socio" placeholder="Nº de movil">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="dniSocio" value="" id="dni-socio" placeholder="Nº DNI sin letra" onBlur="letraDni()">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" id="fecha-alta-socio" name="fechaAltaSocio" type="text"/>
+
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="dniSocio" value="" id="dni-socio" placeholder="Nº DNI sin letra">
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
-                            </div>
-                            <input type="submit" class="btn btn-primary" name="" value="Añadir nuevo socio" id="boton-enviar-nuevo-socio">
+
+                            <input type="submit" class="btn btn-primary" name="" value="Añadir nuevo socio" id="boton-enviar-nuevo-socio" onclick="validarFormulario">
                         </form>
                     </div>
                     <div class="modal-footer">
