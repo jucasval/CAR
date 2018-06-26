@@ -10,6 +10,7 @@
         .error {
             border: solid 2px #FF0000;
         }
+
     </style>
 
     <!-- Latest compiled and minified CSS -->
@@ -192,12 +193,15 @@
                                 <label><input type="checkbox" class="micheckbox" name="socioMonitor" value="false" id="socio-monitor">Monitor</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" name="socioEscuela" value="false" id="socio-escuela">Escuela</label>
+                                <label><input type="checkbox" name="socioEscuela" value="false" id="socio-escuela" onchange="habilitarListaMonitores()">Escuela</label>
                             </div>
                             <div class="checkbox">
                                 <label><input type="checkbox" name="socioFederado" value="false" id="socio-federado">Federado</label>
                             </div>
-                        </div>
+                                <select class="form-control" name= "listaMonitores" id="listaMonitores" disabled>
+                                    <option value="">Seleccionar monitor</option>
+                                </select>
+                            </div>
                         <div class="form-inline" id="fila-3-formulario">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="movilSocio" value="" id="movil-socio" placeholder="Nº de movil" pattern="[0-9]{9}" required>

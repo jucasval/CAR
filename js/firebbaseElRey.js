@@ -23,8 +23,7 @@ function inicializar() {
     tbodyTablaSocios = document.getElementById("tbody-tabla-socios");
 }
 
-function createUpdateSociosFirebase() {
-
+function createUpdateSociosFirebase(event) {
 
 
     if (document.getElementById("socio-monitor").checked) {
@@ -42,7 +41,7 @@ function createUpdateSociosFirebase() {
         letraDni();
     }
 
-
+    event.preventDefault();
 
 
     switch (modo) {
@@ -295,7 +294,11 @@ function cambiarDatosFormulario() {
     $("#socio-monitor").attr('checked', false);
     $("#socio-escuela").attr('checked', false);
     $("#socio-federado").attr('checked', false);
+    document.getElementById("listaMonitores").options.length = 1;
+
     formSocios.reset();
+    llenarSelectDeMonitores();
+    $("#listaMonitores").prop("disabled", true);
     $("#fecha-alta-socio").datepicker().datepicker("setDate", new Date());
     document.getElementById("num-socio").value = numeroDeSocio;
     document.getElementById("boton-enviar-nuevo-socio").value = CREATE;
@@ -324,4 +327,41 @@ function letraDni() {
     miLetraDni = cadena.substring(posicion, posicion + 1);
 
     //document.formulario.dni.value=formulario.dni.value+" - "+letraDni
+}
+
+function llenarSelectDeMonitores(){
+    refNuevoSocio.on("value", function (snap) {
+        var datos = snap.val();
+        var arrayMonitores = [];
+        for (var key in datos) {
+            if(datos[key].socioMonitor==true){
+                var monitor = datos[key].nombreSocio +" "+datos[key].apellidosSocio;
+                arrayMonitores.push(monitor);
+            }
+        }
+        console.log(arrayMonitores);
+        addMonitores("listaMonitores", arrayMonitores);
+    });
+}
+
+function addMonitores(domElement, array){
+    var selector = document.getElementsByName(domElement)[0];
+
+    for (listaMonitores in array) {
+        var opcion = document.createElement("option");
+        opcion.text = array[listaMonitores];
+        selector.add(opcion);
+    }
+}
+
+function habilitarListaMonitores(){
+    document.getElementById("listaMonitores").options.length = 1;
+    if (document.getElementById("socio-escuela").checked) {
+        llenarSelectDeMonitores();
+        $("#listaMonitores").prop("disabled", false);
+    }
+    if (!document.getElementById("socio-escuela").checked) {
+        $("#listaMonitores").prop("disabled", true);
+        document.getElementById("listaMonitores").options.length = 1;
+    }
 }
