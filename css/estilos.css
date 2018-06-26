@@ -71,6 +71,11 @@ footer {
     text-align: center;
 }
 
+#tdEsFederado{
+    text-align: center;
+}
+
+
 #btn-nuevo-socio{
     margin-top: 8px;
     margin-left: 300px;
@@ -106,6 +111,10 @@ footer {
 }
 
 #socio-escuela{
+    margin-left: 20px;
+}
+
+#socio-federado{
     margin-left: 20px;
 }
 

@@ -68,7 +68,7 @@
                     <li><a href="#">Página 3</a></li>
                     <li><a href="#">Página 4</a></li>
                     <li>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btn-nuevo-socio">Nuevo Socio</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btn-nuevo-socio" onclick="cambiarDatosFormulario()">Nuevo Socio</button>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -135,6 +135,7 @@
                                     <th>Fecha de alta</th>
                                     <th>Monitor</th>
                                     <th>Alumno</th>
+                                    <th>Federado</th>
                                     <th>Editar Socio</th>
                                     <th>Borrar Socio</th>
                                 </tr>
@@ -173,7 +174,7 @@
                     <form id="form-socio" autocomplete="off">
                         <div class="form-inline" id="fila-1-formulario">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="numSocio" value="" id="num-socio" placeholder="Número de socio" required>
+                                <input type="number" class="form-control" name="numSocio" value="" id="num-socio" placeholder="Número de socio" required disabled>
                             </div>
 
                             <div class="form-group">
@@ -193,13 +194,16 @@
                             <div class="checkbox">
                                 <label><input type="checkbox" name="socioEscuela" value="false" id="socio-escuela">Escuela</label>
                             </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" name="socioFederado" value="false" id="socio-federado">Federado</label>
+                            </div>
                         </div>
                         <div class="form-inline" id="fila-3-formulario">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="movilSocio" value="" id="movil-socio" placeholder="Nº de movil" pattern="[0-9]{9}" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="dniSocio" value="" id="dni-socio" placeholder="Nº DNI sin letra">
+                                <input type="text" class="form-control" name="dniSocio" value="" id="dni-socio" placeholder="Nº DNI sin letra" pattern="[0-9]{8}">
                             </div>
                             <div class="form-group">
                                 <input class="form-control" id="fecha-alta-socio" name="fechaAltaSocio" type="text" required/>

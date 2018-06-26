@@ -10,6 +10,7 @@ var modo = CREATE;
 var cabeceraModal;
 var esMonitor = false;
 var esAlumno = false;
+var esFederado = false;
 var miLetraDni;
 var numeroDeSocio = 1;
 
@@ -32,6 +33,9 @@ function createUpdateSociosFirebase() {
     if (document.getElementById("socio-escuela").checked) {
         esAlumno = true;
     }
+    if (document.getElementById("socio-federado").checked) {
+        esFederado = true;
+    }
     if (document.getElementById("dni-socio").value == "") {
         miLetraDni = "";
     } else {
@@ -52,15 +56,17 @@ function createUpdateSociosFirebase() {
                 direccionSocio: event.target.direccionSocio.value,
                 socioMonitor: esMonitor,
                 socioEscuela: esAlumno,
+                socioFederado: esFederado,
                 movilSocio: event.target.movilSocio.value,
                 dniSocio: event.target.dniSocio.value,
                 fechaAltaSocio: event.target.fechaAltaSocio.value,
                 letraDni: miLetraDni
             })
             miLetraDni = "";
-            formSocios.reset();
             esMonitor = false;
             esAlumno = false;
+            esFederado = false;
+            formSocios.reset();
             break;
 
         case UPDATE:
@@ -73,15 +79,17 @@ function createUpdateSociosFirebase() {
                 direccionSocio: event.target.direccionSocio.value,
                 socioMonitor: esMonitor,
                 socioEscuela: esAlumno,
+                socioFederado: esFederado,
                 movilSocio: event.target.movilSocio.value,
                 dniSocio: event.target.dniSocio.value,
                 fechaAltaSocio: event.target.fechaAltaSocio.value,
                 letraDni: miLetraDni
             })
             miLetraDni = "";
-            formSocios.reset();
             esMonitor = false;
             esAlumno = false;
+            esFederado = false;
+            formSocios.reset();
             $('#myModal').modal('hide');
     }
 
@@ -111,6 +119,12 @@ function mostrarSociosFirebase() {
                 datosKeySocioMonitor = '<span class="glyphicon glyphicon-remove iconRemove"></span>';
             }
 
+            if (datos[key].socioFederado) {
+                var datosKeySocioFederado = "<span class='glyphicon glyphicon-ok iconOk'></span>";
+            } else {
+                datosKeySocioFederado = '<span class="glyphicon glyphicon-remove iconRemove"></span>';
+            }
+
             if (datos[key].dniSocio == "") {
                 filasAMostrar +=
                     '<tr id="tablaSocios">' +
@@ -123,6 +137,7 @@ function mostrarSociosFirebase() {
                     "<td>" + datos[key].fechaAltaSocio + "</td>" +
                     "<td id='tdEsMonitor'>" + datosKeySocioMonitor + "</td>" +
                     "<td id='tdEsAlumno'>" + datosKeySocioEscuela + "</td>" +
+                    "<td id='tdEsFederado'>" + datosKeySocioFederado + "</td>" +
                     '<td id="tdEditar">' +
                     '<button class="btn btn-default editar" data-toggle="modal" data-target="#myModal" data-socios="' + key + '">' +
                     '<span class="glyphicon glyphicon-pencil"></span>' +
@@ -146,6 +161,7 @@ function mostrarSociosFirebase() {
                     "<td>" + datos[key].fechaAltaSocio + "</td>" +
                     "<td id='tdEsMonitor'>" + datosKeySocioMonitor + "</td>" +
                     "<td id='tdEsAlumno'>" + datosKeySocioEscuela + "</td>" +
+                    "<td id='tdEsFederado'>" + datosKeySocioFederado + "</td>" +
                     '<td id="tdEditar">' +
                     '<button class="btn btn-default editar" data-toggle="modal" data-target="#myModal" data-socios="' + key + '">' +
                     '<span class="glyphicon glyphicon-pencil"></span>' +
@@ -187,6 +203,7 @@ function datosRecogidosEnFormulario() {
     var direccionSocio = $("#direccion-socio").val();
     var socioMonitor = $("#socio-monitor").val();
     var socioAlumno = $("#socio-escuela").val();
+    var socioFederado = $("#socio-federado").val();
     var movilSocio = $("#movil-socio").val();
     var dniSocio = $("#dni-socio").val();
     var fechaAltaSocio = $("#fecha-alta-socio").val();
@@ -205,6 +222,12 @@ function datosRecogidosEnFormulario() {
     } else {
         $("#socio-escuela").attr('checked', false);
     }
+    if (!socioFederado) {
+        $("#socio-federado").attr('checked', true);
+    } else {
+        $("#socio-federado").attr('checked', false);
+    }
+
     document.getElementById("movil-socio").value = movilSocio;
     document.getElementById("dni-socio").value = dniSocio;
     document.getElementById("fecha-alta-socio").value = fechaAltaSocio;
@@ -229,6 +252,11 @@ function editarSociosDeFirebase() {
         } else {
             $("#socio-escuela").attr('checked', false);
         }
+        if (datos.socioFederado) {
+            $("#socio-federado").attr('checked', true);
+        } else {
+            $("#socio-federado").attr('checked', false);
+        }
         document.getElementById("movil-socio").value = datos.movilSocio;
         document.getElementById("dni-socio").value = datos.dniSocio;
         document.getElementById("fecha-alta-socio").value = datos.fechaAltaSocio;
@@ -246,13 +274,34 @@ function editarSociosDeFirebase() {
 function borrarSociosDeFirebase() {
     var keyDeSociosABorrar = this.getAttribute("data-socios");
     var refSocioABorrar = refNuevoSocio.child(keyDeSociosABorrar);
-    refSocioABorrar.remove();
+    var numSocioABorrar, nombreSocioAborrar, apellidosSocioABorrar;
+    refSocioABorrar.once("value", function (snap) {
+        var datos = snap.val();
+        numSocioABorrar = datos.numSocio;
+        nombreSocioAborrar = datos.nombreSocio;
+        apellidosSocioABorrar = datos.apellidosSocio;
+    });
+    var r = confirm("BORRAR SOCIO Nº: "+numSocioABorrar+"\n"+nombreSocioAborrar+" "+apellidosSocioABorrar);
+    if(r==true){
+        refSocioABorrar.remove();
+    }
+
 }
 
 function cambiarDatosFormulario() {
-    document.getElementById("boton-enviar-nuevo-socio").value = CREATE;
-    document.getElementById("cabecera-modal").innerHTML = "Nuevo Socio";
+    cabeceraModal = "Dar de alta un nuevo socio";
+    document.getElementById("cabecera-modal").innerHTML = cabeceraModal;
+    miLetraDni = "";
+    $("#socio-monitor").attr('checked', false);
+    $("#socio-escuela").attr('checked', false);
+    $("#socio-federado").attr('checked', false);
     formSocios.reset();
+    $("#fecha-alta-socio").datepicker().datepicker("setDate", new Date());
+    document.getElementById("num-socio").value = numeroDeSocio;
+    document.getElementById("boton-enviar-nuevo-socio").value = CREATE;
+    document.getElementById("cabecera-modal").innerHTML = cabeceraModal;
+    console.log(numeroDeSocio);
+
 }
 
 $(document).ready(function () {
